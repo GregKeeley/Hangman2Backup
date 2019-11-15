@@ -37,9 +37,9 @@ func resetGame() -> () {
 }
 
 func customWordUnderscores(_ userInput: String) {
-    for (index, _) in underscoresFromRandomWord.enumerated() {
+    for (index, _) in underscoresFromRandomWordTwoPlayer.enumerated() {
         if indices.contains(index) {
-            underscoresFromRandomWord[index] = Character(userInput)
+            underscoresFromRandomWordTwoPlayer[index] = Character(userInput)
         }
     }
 }
