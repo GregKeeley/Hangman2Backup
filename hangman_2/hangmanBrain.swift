@@ -75,7 +75,6 @@ func hangmanBrain(_ userInput: String) {
 func hangmanBrain2(_ userInput: String) {
     if userInput.count > 1 || !alphabet.contains(userInput) || correctGuess.contains(userInput) || lettersGuessed.contains(userInput) {
         print("valid character was not entered")
-        print(customWord)
     } else if customWord.contains(userInput) {
         for (index, char) in customWord.enumerated() {
             if userInput.contains(char) {
@@ -95,8 +94,6 @@ func hangmanBrain2(_ userInput: String) {
         guessCounter += 1
         lettersGuessed.append(userInput + " ")
         totalGuesses += 1
-        print(guessCounter)
-        print(customWord)
     }
 }
 //func changeImage() {

@@ -27,6 +27,9 @@ class TwoPlayerViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         userInput.delegate = self
         enterWordTextField.delegate = self
+        
+        //MARK: Disabling elements on load
+        beginGame()
     }
     
     // MARK: Actions and funcs
@@ -37,51 +40,63 @@ class TwoPlayerViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func beginGameButtonPressed(_ sender: UIButton) {
         beginGameButton.isHidden = true
+        beginGame()
         resetGame()
-        mainGameLabel.text = String(underscoresFromRandomWordTwoPlayer)
+        //Move to return on enterTextField to begin game
         incorrectGuessCounter.text = "0"
-        incorrectLettersLabel.text = ("Tap \"Begin Game\" to start")
+        incorrectLettersLabel.text = ("")
     }
+    
+    func beginGame() {
+        userInput.isHidden = true
+        incorrectGuessCounter.isHidden = true
+        mainASCiiLabel.isHidden = true
+        winOrLoseLabel.isHidden = true
+        beginGameButton.isHidden = true
+        enterWordTextField.text = ""
+        enterWordTextField.isHidden = false
+        customWord = ""
+        newWord = ""
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.text = ""
-    
     }
-    
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        if textField == enterWordTextField {
-//            newWord = enterWordTextField.text ?? "Hello"
-//        }
-//    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == enterWordTextField {
             newWord = enterWordTextField.text ?? "Hello"
-            print(newWord)
             customWord = newWord
-            print(customWord)
             customWordUnderscores(customWord)
-            print(underscoresFromRandomWordTwoPlayer)
-            enterWordTextField.text = ""
-            enterWordTextField.isEnabled = false
-        } else if textField == userInput {
             
+            enterWordTextField.isHidden = true
+            userInput.isHidden = false
+            incorrectGuessCounter.isHidden = false
+            mainASCiiLabel.isHidden = false
+            winOrLoseLabel.isHidden = false
+            
+            mainGameLabel.text = String(underscoresFromRandomWordTwoPlayer)
+            incorrectGuessCounter.text = "0"
+            incorrectLettersLabel.text = ("")
+            textField.resignFirstResponder()
+            
+        } else if textField == userInput {
             hangmanBrain2(textField.text ?? "0")
             mainGameLabel.text = String(underscoresFromRandomWordTwoPlayer + " ")
             userInput.text = ""
             incorrectLettersLabel.text = lettersGuessed.uppercased()
             incorrectGuessCounter.text = String(guessCounter)
-            print(underscoresFromRandomWordTwoPlayer)
-            print(String(underscoresFromRandomWordTwoPlayer))
-            print(newWord)
             if customWord == (String(underscoresFromRandomWordTwoPlayer)) {
                 winOrLoseLabel.text = "WINNER!!!"
                 beginGameButton.isHidden = false
                 beginGameButton.setTitle("Tap here to play again", for: .normal)
-            } else if guessCounter > 5 {
+                underscoresFromRandomWordTwoPlayer.removeAll()
+            } else if incorrectGuessCounter.text == "6" {
                 winOrLoseLabel.text = "You lost..."
                 beginGameButton.isHidden = false
                 beginGameButton.setTitle("Tap here to play again", for: .normal)
                 mainGameLabel.text = newWord
+                underscoresFromRandomWordTwoPlayer.removeAll()
             }
             switch guessCounter {
             case 0:
@@ -103,9 +118,7 @@ class TwoPlayerViewController: UIViewController, UITextFieldDelegate {
             }
         }
         return userInput.resignFirstResponder()
-        
     }
-    
 }
 
 
