@@ -57,17 +57,23 @@ class TwoPlayerViewController: UIViewController, UITextFieldDelegate {
         if textField == enterWordTextField {
             newWord = enterWordTextField.text ?? "Hello"
             print(newWord)
+            customWord = newWord
+            print(customWord)
+            customWordUnderscores(customWord)
+            print(underscoresFromRandomWordTwoPlayer)
             enterWordTextField.text = ""
             enterWordTextField.isEnabled = false
         } else if textField == userInput {
             
-            hangmanBrain(textField.text ?? "0")
-            mainGameLabel.text = String(underscoresFromRandomWord)
+            hangmanBrain2(textField.text ?? "0")
+            mainGameLabel.text = String(underscoresFromRandomWordTwoPlayer + " ")
             userInput.text = ""
             incorrectLettersLabel.text = lettersGuessed.uppercased()
             incorrectGuessCounter.text = String(guessCounter)
-            
-            if randomWord == (String(underscoresFromRandomWord)) {
+            print(underscoresFromRandomWordTwoPlayer)
+            print(String(underscoresFromRandomWordTwoPlayer))
+            print(newWord)
+            if customWord == (String(underscoresFromRandomWordTwoPlayer)) {
                 winOrLoseLabel.text = "WINNER!!!"
                 beginGameButton.isHidden = false
                 beginGameButton.setTitle("Tap here to play again", for: .normal)
@@ -75,7 +81,7 @@ class TwoPlayerViewController: UIViewController, UITextFieldDelegate {
                 winOrLoseLabel.text = "You lost..."
                 beginGameButton.isHidden = false
                 beginGameButton.setTitle("Tap here to play again", for: .normal)
-                mainGameLabel.text = randomWord
+                mainGameLabel.text = newWord
             }
             switch guessCounter {
             case 0:

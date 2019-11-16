@@ -6,10 +6,12 @@
 //  Copyright © 2019 Gregory Keeley. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+
 
 var randomWord = words.randomElement()?.lowercased() ?? "Error"
-var customWord = viewcontroller2.newWord
+var customWord = String()
 
 var underscoresFromRandomWord:[Character] = Array(String(repeating: "_", count: randomWord.count))
 var underscoresFromRandomWordTwoPlayer: [Character] = Array(String(repeating: "_", count: customWord.count))
@@ -46,7 +48,7 @@ func customWordUnderscores(_ userInput: String) {
 
 func hangmanBrain(_ userInput: String) {
     if userInput.count > 1 || !alphabet.contains(userInput) || correctGuess.contains(userInput) || lettersGuessed.contains(userInput) {
-        print("please try again")
+        print("valid character was not entered")
     } else if randomWord.contains(userInput) {
         for (index, char) in randomWord.enumerated() {
             if userInput.contains(char) {
@@ -68,6 +70,33 @@ func hangmanBrain(_ userInput: String) {
         totalGuesses += 1
         print(guessCounter)
         print(randomWord)
+    }
+}
+func hangmanBrain2(_ userInput: String) {
+    if userInput.count > 1 || !alphabet.contains(userInput) || correctGuess.contains(userInput) || lettersGuessed.contains(userInput) {
+        print("valid character was not entered")
+        print(customWord)
+    } else if customWord.contains(userInput) {
+        for (index, char) in customWord.enumerated() {
+            if userInput.contains(char) {
+                indices.append(index)
+                correctGuess.append(userInput)
+                winWord.append(userInput)
+            }
+        }
+        for (index, _) in underscoresFromRandomWordTwoPlayer.enumerated() {
+            if indices.contains(index) {
+                underscoresFromRandomWordTwoPlayer[index] = Character(userInput)
+            }
+        }
+        indices.removeAll()
+    }
+    if !customWord.contains(userInput) {
+        guessCounter += 1
+        lettersGuessed.append(userInput + " ")
+        totalGuesses += 1
+        print(guessCounter)
+        print(customWord)
     }
 }
 //func changeImage() {
@@ -199,4 +228,5 @@ func hangmanBrain(_ userInput: String) {
  print("Current progress: \(String(underscoresFromRandomWord))")
  //    } while repeatCondition
  }
+ 
  */
