@@ -18,6 +18,9 @@ class TwoPlayerViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var incorrectGuessCounter: UILabel!
     @IBOutlet weak var winOrLoseLabel: UILabel!
     @IBOutlet weak var mainASCiiLabel: UILabel!
+    @IBOutlet weak var enterWordPointerLabel: UILabel!
+    
+    @IBOutlet weak var guessWordPointerLabel: UILabel!
     
     
     var newWord = String()
@@ -27,8 +30,8 @@ class TwoPlayerViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         userInput.delegate = self
         enterWordTextField.delegate = self
-        
-        //MARK: Disabling elements on load
+        enterWordPointerLabel.isHidden = false
+        guessWordPointerLabel.isHidden = true
         beginGame()
     }
     
@@ -68,7 +71,8 @@ class TwoPlayerViewController: UIViewController, UITextFieldDelegate {
             newWord = enterWordTextField.text ?? "Hello"
             customWord = newWord
             customWordUnderscores(customWord)
-            
+            guessWordPointerLabel.isHidden = false
+            enterWordPointerLabel.isHidden = true
             enterWordTextField.isHidden = true
             userInput.isHidden = false
             incorrectGuessCounter.isHidden = false
