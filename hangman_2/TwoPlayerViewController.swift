@@ -9,7 +9,7 @@
 import UIKit
 
 class TwoPlayerViewController: UIViewController, UITextFieldDelegate {
-    
+    // ** CHANGE "mainASCiiLabel" to an actual label, not a UITextView
     @IBOutlet weak var userInput: UITextField!
     @IBOutlet weak var enterWordTextField: UITextField!
     @IBOutlet weak var beginGameButton: UIButton!
@@ -17,7 +17,7 @@ class TwoPlayerViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var incorrectLettersLabel: UILabel!
     @IBOutlet weak var incorrectGuessCounter: UILabel!
     @IBOutlet weak var winOrLoseLabel: UILabel!
-    @IBOutlet weak var mainASCiiLabel: UITextView!
+    @IBOutlet weak var mainASCiiLabel: UILabel!
     
     
     var newWord = String()
